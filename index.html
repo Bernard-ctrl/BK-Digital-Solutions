@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BK Digital Solutions</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>BK Digital Solutions</h1>
+        <nav>
+            <ul>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="hero">
+            <h2>Modern Digital Services for Students & Educators</h2>
+            <p>Website creation, documentation, debugging, and more—tailored for computer science projects.</p>
+        </section>
+        <section id="services">
+            <h3>Our Services</h3>
+            <ul class="services-list">
+                <li>Website Creation</li>
+                <li>Technical Documentation</li>
+                <li>Debugging Assistance</li>
+                <li>Project Consulting</li>
+            </ul>
+        </section>
+        <section id="about">
+            <h3>About Us</h3>
+            <p>BK Digital Solutions is dedicated to supporting students and educators with user-friendly, modern solutions for academic and technical needs.</p>
+        </section>
+        <section id="contact">
+            <h3>Contact</h3>
+            <form id="contactForm" action="https://formspree.io/f/xldljorn" method="POST">
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                <input type="email" id="email" name="email" placeholder="Your Email" required>
+                <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+            <div id="formMessage"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 BK Digital Solutions. All rights reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
