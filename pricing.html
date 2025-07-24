@@ -7,60 +7,122 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>BK Digital Solutions</h1>
+    <header class="main-header">
+        <div class="logo-title">
+            <img src="https://img.icons8.com/color/48/000000/artificial-intelligence.png" alt="BK Digital Solutions Logo" class="logo">
+            <h1>BK Digital Solutions</h1>
+        </div>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="pricing.html">Pricing</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
     <main>
         <section id="pricing">
             <h2>Pricing</h2>
-            <p>Choose the plan that fits your needs. All plans include email support and free consultation for students and educators.</p>
-            <div class="pricing-table">
-                <div class="pricing-card">
-                    <h3>Basic</h3>
-                    <p class="price">RM 199</p>
-                    <ul>
-                        <li>1-page Website</li>
-                        <li>Email Support</li>
-                    </ul>
-                    <a href="#contact" class="btn">Get Started</a>
-                </div>
-                <div class="pricing-card">
-                    <h3>Standard</h3>
-                    <p class="price">RM 350</p>
-                    <ul>
-                        <li>Up to 5 Pages Website</li>
-                        <li>Debugging Assistance</li>
-                        <li>Email & Chat Support</li>
-                        <li>Documentation: <b>RM100 per fasa</b> (up to 5 fasa)</li>
-                    </ul>
-                    <a href="#contact" class="btn">Get Started</a>
-                </div>
-                <div class="pricing-card">
-                    <h3>Premium</h3>
-                    <p class="price">RM 700</p>
-                    <ul>
-                        <li>Advanced/Custom Website</li>
-                        <li>Full Project Consulting</li>
-                        <li>Advanced Debugging</li>
-                        <li>Priority Support</li>
-                        <li>Documentation: <b>RM100 per fasa</b> (up to 5 fasa)</li>
-                    </ul>
-                    <a href="#contact" class="btn">Get Started</a>
-                </div>
+            <p>Compare our plans and choose what fits your needs best.</p>
+            <div class="pricing-comparison-wrapper">
+                <table class="pricing-comparison">
+                    <thead>
+                        <tr>
+                            <th>Service</th>
+                            <th>
+                                <img src="https://img.icons8.com/color/36/1a237e/monitor--v1.png" alt="Basic" class="pricing-icon"><br>Basic<br><span class="price">RM 30</span>
+                            </th>
+                            <th>
+                                <img src="https://img.icons8.com/color/36/1a237e/source-code.png" alt="Standard" class="pricing-icon"><br>Standard<br><span class="price">RM 100</span>
+                            </th>
+                            <th>
+                                <img src="https://img.icons8.com/color/36/1a237e/rocket--v1.png" alt="Premium" class="pricing-icon"><br>Premium<br><span class="price">RM 500</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1-page Website</td>
+                            <td><img src="https://img.icons8.com/color/28/26e07f/checkmark--v1.png" alt="Yes"></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Up to 5 Pages Website</td>
+                            <td></td>
+                            <td><img src="https://img.icons8.com/color/28/26e07f/checkmark--v1.png" alt="Yes"></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Advanced/Custom Website</td>
+                            <td></td>
+                            <td></td>
+                            <td><img src="https://img.icons8.com/color/28/26e07f/checkmark--v1.png" alt="Yes"></td>
+                        </tr>
+                        <tr>
+                            <td>Email Support</td>
+                            <td><img src="https://img.icons8.com/color/28/26e07f/checkmark--v1.png" alt="Yes"></td>
+                            <td><img src="https://img.icons8.com/color/28/26e07f/checkmark--v1.png" alt="Yes"></td>
+                            <td><img src="https://img.icons8.com/color/28/26e07f/checkmark--v1.png" alt="Yes"></td>
+                        </tr>
+                        <tr>
+                            <td>Email & Chat Support</td>
+                            <td></td>
+                            <td><img src="https://img.icons8.com/color/28/26e07f/checkmark--v1.png" alt="Yes"></td>
+                            <td><img src="https://img.icons8.com/color/28/26e07f/checkmark--v1.png" alt="Yes"></td>
+                        </tr>
+                        <tr>
+                            <td>Debugging Assistance</td>
+                            <td></td>
+                            <td><img src="https://img.icons8.com/color/28/26e07f/checkmark--v1.png" alt="Yes"></td>
+                            <td><img src="https://img.icons8.com/color/28/26e07f/checkmark--v1.png" alt="Yes"></td>
+                        </tr>
+                        <tr>
+                            <td>Advanced Debugging</td>
+                            <td></td>
+                            <td></td>
+                            <td><img src="https://img.icons8.com/color/28/26e07f/checkmark--v1.png" alt="Yes"></td>
+                        </tr>
+                        <tr>
+                            <td>Documentation (RM100 per fasa, up to 5 fasa)</td>
+                            <td></td>
+                            <td><img src="https://img.icons8.com/color/28/26e07f/checkmark--v1.png" alt="Yes"></td>
+                            <td><img src="https://img.icons8.com/color/28/26e07f/checkmark--v1.png" alt="Yes"></td>
+                        </tr>
+                        <tr>
+                            <td>Full Project Consulting</td>
+                            <td></td>
+                            <td></td>
+                            <td><img src="https://img.icons8.com/color/28/26e07f/checkmark--v1.png" alt="Yes"></td>
+                        </tr>
+                        <tr>
+                            <td>Priority Support</td>
+                            <td></td>
+                            <td></td>
+                            <td><img src="https://img.icons8.com/color/28/26e07f/checkmark--v1.png" alt="Yes"></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td><a href="index.html#contact" class="btn">Get Started</a></td>
+                            <td><a href="index.html#contact" class="btn">Get Started</a></td>
+                            <td><a href="index.html#contact" class="btn">Get Started</a></td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </section>
     </main>
     <footer>
         <p>&copy; 2025 BK Digital Solutions. All rights reserved.</p>
+        <div class="footer-social">
+            <a href="#" title="Instagram"><img src="https://img.icons8.com/ios-filled/28/1a237e/instagram-new.png" alt="Instagram"></a>
+            <a href="#" title="Facebook"><img src="https://img.icons8.com/ios-filled/28/1a237e/facebook-new.png" alt="Facebook"></a>
+            <a href="#" title="LinkedIn"><img src="https://img.icons8.com/ios-filled/28/1a237e/linkedin.png" alt="LinkedIn"></a>
+        </div>
     </footer>
 </body>
 </html>

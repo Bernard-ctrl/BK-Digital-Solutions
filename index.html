@@ -4,11 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BK Digital Solutions</title>
+    <link rel="icon" type="image/png" href="https://img.icons8.com/color/48/000000/artificial-intelligence.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>BK Digital Solutions</h1>
+    <header class="main-header">
+        <div class="logo-title">
+            <img src="https://img.icons8.com/color/48/000000/artificial-intelligence.png" alt="BK Digital Solutions Logo" class="logo">
+            <h1>BK Digital Solutions</h1>
+        </div>
         <nav>
             <ul>
                 <li><a href="pricing.html">Pricing</a></li>
@@ -20,35 +24,54 @@
     </header>
     <main>
         <section id="hero">
-            <h2>Modern Digital Services for Students & Educators</h2>
-            <p>Website creation, documentation, debugging, and more—tailored for computer science projects.</p>
+            <div class="hero-bg"></div>
+            <div class="hero-content">
+                <h2>Modern Digital Services for Students & Educators</h2>
+                <p>Website creation, documentation, debugging, and more—tailored for computer science projects.</p>
+                <a href="#contact" class="hero-btn">Get Started</a>
+            </div>
         </section>
         <section id="services">
             <h3>Our Services</h3>
             <ul class="services-list">
-                <li>Website Creation</li>
-                <li>Technical Documentation</li>
-                <li>Debugging Assistance</li>
-                <li>Project Consulting</li>
+                <li><img src="https://img.icons8.com/color/48/000000/domain.png" alt="Website Creation">Website Creation</li>
+                <li><img src="https://img.icons8.com/color/48/000000/document--v1.png" alt="Technical Documentation">Technical Documentation</li>
+                <li><img src="https://img.icons8.com/color/48/000000/bug.png" alt="Debugging Assistance">Debugging Assistance</li>
+                <li><img src="https://img.icons8.com/color/48/000000/consultation.png" alt="Project Consulting">Project Consulting</li>
             </ul>
         </section>
         <section id="about">
             <h3>About Us</h3>
-            <p>BK Digital Solutions is dedicated to supporting students and educators with user-friendly, modern solutions for academic and technical needs.</p>
+            <p>BK Digital Solutions is dedicated to supporting students and educators with user-friendly, modern solutions for academic and technical needs.<br>
+            <span class="about-highlight">We combine technology, creativity, and expertise to help you succeed.</span></p>
         </section>
         <section id="contact">
             <h3>Contact</h3>
             <form id="contactForm" action="https://formspree.io/f/xldljorn" method="POST">
-                <input type="text" id="name" name="name" placeholder="Your Name" required>
-                <input type="email" id="email" name="email" placeholder="Your Email" required>
-                <textarea id="message" name="message" placeholder="Your Message" required></textarea>
-                <button type="submit">Send</button>
+                <div class="input-group">
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <span class="input-icon"><img src="https://img.icons8.com/ios-filled/24/1a237e/user.png" alt="Name"></span>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="email" name="email" placeholder="Your Email" required>
+                    <span class="input-icon"><img src="https://img.icons8.com/ios-filled/24/1a237e/new-post.png" alt="Email"></span>
+                </div>
+                <div class="input-group">
+                    <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+                    <span class="input-icon"><img src="https://img.icons8.com/ios-filled/24/1a237e/speech-bubble.png" alt="Message"></span>
+                </div>
+                <button type="submit" class="contact-btn">Send</button>
             </form>
             <div id="formMessage"></div>
         </section>
     </main>
     <footer>
         <p>&copy; 2025 BK Digital Solutions. All rights reserved.</p>
+        <div class="footer-social">
+            <a href="#" title="Instagram"><img src="https://img.icons8.com/ios-filled/28/1a237e/instagram-new.png" alt="Instagram"></a>
+            <a href="#" title="Facebook"><img src="https://img.icons8.com/ios-filled/28/1a237e/facebook-new.png" alt="Facebook"></a>
+            <a href="#" title="LinkedIn"><img src="https://img.icons8.com/ios-filled/28/1a237e/linkedin.png" alt="LinkedIn"></a>
+        </div>
     </footer>
     <script src="script.js"></script>
 </body>
