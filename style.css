@@ -76,6 +76,13 @@ body {
     position: relative;
     overflow-x: hidden;
 }
+html {
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+*, *::before, *::after {
+    box-sizing: inherit;
+}
 .main-header {
     background: rgba(26,35,126,0.98);
     color: #fff;
