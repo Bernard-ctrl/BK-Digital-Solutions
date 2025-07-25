@@ -115,6 +115,54 @@ nav ul {
     justify-content: center;
     gap: 2.2rem;
 }
+@media (max-width: 700px) {
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        background: #1a237e;
+        padding: 1rem 0;
+    }
+    .main-header {
+        padding: 0.7rem 0 0.7rem 0;
+    }
+    .logo-title h1 {
+        font-size: 1.3rem;
+    }
+    .logo-title {
+        gap: 0.5rem;
+    }
+    main {
+        padding: 0.5rem 0.2rem;
+        margin: 1rem 0.2rem;
+    }
+    .hero-content h2 {
+        font-size: 1.3rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+    }
+    .services-list {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .services-list li {
+        min-width: unset;
+        width: 100%;
+        padding: 1rem 0.5rem;
+        font-size: 1rem;
+    }
+    .pricing-comparison {
+        min-width: unset;
+        font-size: 0.9rem;
+    }
+    .pricing-comparison th, .pricing-comparison td {
+        padding: 0.3rem 0.1rem;
+    }
+    form {
+        padding: 1rem 0.5rem 0.5rem 0.5rem;
+    }
+}
 nav a {
     color: #fff;
     text-decoration: none;
