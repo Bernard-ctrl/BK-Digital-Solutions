@@ -102,35 +102,35 @@ window.addEventListener('DOMContentLoaded', () => {
         let t = 0;
         let phase = 0;
         function animate() {
-            t += 0.018;
+            t += 0.009; // slower time increment
             group.rotation.x = Math.sin(t * 0.7) * 0.13 + 0.25;
-            group.rotation.y += 0.012;
+            group.rotation.y += 0.006; // slower rotation
 
             // Animate parts assembling in sequence
             // 0-1s: RAM moves in
             if (phase === 0 && ram.position.z > 0.18) {
-                ram.position.z -= 0.04;
+                ram.position.z -= 0.018; // slower movement
             } else if (phase === 0) {
                 ram.position.z = 0.18;
                 phase = 1;
             }
             // 1-2s: SSD moves in
             if (phase === 1 && ssd.position.z > 0.18) {
-                ssd.position.z -= 0.04;
+                ssd.position.z -= 0.018; // slower movement
             } else if (phase === 1) {
                 ssd.position.z = 0.18;
                 phase = 2;
             }
             // 2-3s: GPU moves in
             if (phase === 2 && gpu.position.z > 0.18) {
-                gpu.position.z -= 0.05;
+                gpu.position.z -= 0.022; // slower movement
             } else if (phase === 2) {
                 gpu.position.z = 0.18;
                 phase = 3;
             }
             // 3-4s: CPU moves in
             if (phase === 3 && cpu.position.z > 0.18) {
-                cpu.position.z -= 0.04;
+                cpu.position.z -= 0.018; // slower movement
             } else if (phase === 3) {
                 cpu.position.z = 0.18;
                 phase = 4;
