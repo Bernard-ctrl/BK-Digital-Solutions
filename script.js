@@ -147,13 +147,13 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         animate();
 
-        // Fade out after 5.5s
+        // Fade out after 1.2s
         setTimeout(() => {
             intro.classList.add('fade-out');
             setTimeout(() => {
                 intro.remove();
-            }, 1100);
-        }, 5500);
+            }, 700);
+        }, 1200);
     }
 });
 
