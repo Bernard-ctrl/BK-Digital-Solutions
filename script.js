@@ -157,22 +157,25 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Contact form validation
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const message = document.getElementById('message').value.trim();
-    const formMessage = document.getElementById('formMessage');
-
-    if (!name || !email || !message) {
-        e.preventDefault();
-        formMessage.textContent = 'Please fill in all fields.';
-        formMessage.style.color = '#ffb300';
-        return;
-    }
-    formMessage.textContent = 'Sending your message...';
-    formMessage.style.color = '#3949ab';
-});
+// Contact form validation (guard for pages without the form)
+(function(){
+    const contactForm = document.getElementById('contactForm');
+    if(!contactForm) return; // Avoid breaking other pages
+    contactForm.addEventListener('submit', function(e) {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const message = document.getElementById('message').value.trim();
+        const formMessage = document.getElementById('formMessage');
+        if (!name || !email || !message) {
+            e.preventDefault();
+            formMessage.textContent = 'Please fill in all fields.';
+            formMessage.style.color = '#ffb300';
+            return;
+        }
+        formMessage.textContent = 'Sending your message...';
+        formMessage.style.color = '#3949ab';
+    });
+})();
 
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -223,3 +226,131 @@ window.addEventListener('scroll', () => {
         heroBg.style.transform = `translateY(${scrolled * 0.18}px) scale(1.01)`;
     }
 });
+
+// ====== Custom Quote Builder Logic ======
+function initQuoteBuilder(){
+    const form = document.getElementById('customQuoteForm');
+    if(!form) return;
+    const totalEl = document.getElementById('quoteTotal');
+    const breakdownEl = document.getElementById('quoteBreakdown');
+    const hiddenTotal = document.getElementById('calculated_total');
+    const hiddenBreakdown = document.getElementById('quote_breakdown');
+    const docPhasesInput = document.getElementById('docPhases');
+    const nameInput = document.getElementById('quoteName');
+    const emailInput = document.getElementById('quoteEmail');
+    const resetBtn = document.getElementById('resetQuoteForm');
+
+    const STORAGE_KEY = 'bk_quote_builder_v1';
+
+    function saveState(){
+        const data = {
+            tier: form.querySelector('input[name="website_tier"]:checked')?.value || '',
+            phases: docPhasesInput.value,
+            options: Array.from(form.querySelectorAll('input[type="checkbox"][data-price]:checked')).map(cb=>cb.name),
+            name: nameInput?.value || '',
+            email: emailInput?.value || ''
+        };
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) { /* ignore quota */ }
+    }
+
+    function loadState(){
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if(!raw) return;
+            const data = JSON.parse(raw);
+            if(data.tier){
+                const tierEl = form.querySelector(`input[name="website_tier"][value="${data.tier}"]`);
+                if(tierEl) tierEl.checked = true;
+            }
+            if(typeof data.phases !== 'undefined') docPhasesInput.value = data.phases;
+            if(Array.isArray(data.options)){
+                data.options.forEach(name=>{
+                    const cb = form.querySelector(`input[type="checkbox"][name="${name}"]`);
+                    if(cb) cb.checked = true;
+                });
+            }
+            if(nameInput && data.name) nameInput.value = data.name;
+            if(emailInput && data.email) emailInput.value = data.email;
+        } catch(e){ /* ignore parse errors */ }
+    }
+
+    function clearState(){
+        try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+    }
+
+    function calculate(){
+        let total = 0;
+        let breakdown = [];
+        // Website tier
+        const tier = form.querySelector('input[name="website_tier"]:checked');
+        if(tier){
+            const price = parseFloat(tier.dataset.price||'0');
+            total += price;
+            breakdown.push(`Website Tier (${tier.value}) : RM${price}`);
+        }
+        // Documentation phases
+        let phases = parseInt(docPhasesInput.value,10);
+        if(isNaN(phases) || phases < 0) phases = 0;
+        if(phases > 5) phases = 5;
+        docPhasesInput.value = phases;
+        if(phases>0){
+            const docCost = phases * 100;
+            total += docCost;
+            breakdown.push(`Documentation Phases (${phases} x RM100) : RM${docCost}`);
+        }
+        // Optional services
+        const optionChecks = form.querySelectorAll('input[type="checkbox"][data-price]');
+        optionChecks.forEach(cb=>{
+            if(cb.checked){
+                const p = parseFloat(cb.dataset.price||'0');
+                total += p;
+                breakdown.push(`${cb.value} : RM${p}`);
+            }
+        });
+        totalEl.textContent = `RM${total}`;
+        breakdownEl.textContent = breakdown.join('\n');
+        hiddenTotal.value = total;
+        hiddenBreakdown.value = breakdown.join('\n');
+        saveState();
+    }
+    // Use multiple event types to catch all interactions (especially on iOS)
+    form.addEventListener('change', calculate);
+    form.addEventListener('input', (e)=>{
+        if(e.target && (e.target.matches('input[type="number"]') || e.target.matches('input[type="text"]') || e.target.matches('input[type="email"]'))) {
+            calculate();
+        }
+    });
+    form.addEventListener('click', (e)=>{
+        if(e.target && (e.target.matches('input[type="radio"]') || e.target.matches('input[type="checkbox"]'))){
+            calculate();
+        }
+    });
+    docPhasesInput.addEventListener('input', calculate);
+    if(nameInput) nameInput.addEventListener('input', saveState);
+    if(emailInput) emailInput.addEventListener('input', saveState);
+    if(resetBtn){
+        resetBtn.addEventListener('click', () => {
+            form.reset();
+            docPhasesInput.value = 0;
+            calculate();
+            clearState();
+            const msg = document.getElementById('quoteFormMessage');
+            if(msg){ msg.textContent = 'Form reset.'; msg.style.color = '#ffe082'; }
+        });
+    }
+    loadState();
+    calculate();
+
+    // Ensure hidden fields up to date on submit
+    form.addEventListener('submit', function(){
+        calculate();
+        const msg = document.getElementById('quoteFormMessage');
+        if(msg){
+            msg.style.color = '#ffe082';
+            msg.textContent = 'Submitting...';
+            setTimeout(()=>{ msg.textContent = 'If not redirected, please check your connection.'; msg.style.color = '#ffb300';}, 4000);
+        }
+    });
+}
+
+window.addEventListener('DOMContentLoaded', initQuoteBuilder);

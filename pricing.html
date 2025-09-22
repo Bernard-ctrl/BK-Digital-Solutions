@@ -75,6 +75,56 @@
             </div>
         </section>
     </main>
+    <section class="features-section" style="margin-top:0;" id="custom-quote">
+        <h3 class="section-title">Build Your Own Package</h3>
+        <div class="glass" style="max-width:850px;margin:0 auto;padding:2rem 1.5rem;">
+            <form id="customQuoteForm" action="https://formspree.io/f/xldljorn" method="POST">
+                <div class="quote-grid">
+                    <div class="quote-block" style="grid-column:1/-1;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;">
+                        <div>
+                            <label for="quoteName">Name</label>
+                            <input type="text" id="quoteName" name="name" required placeholder="Your Name" style="width:100%;padding:.6rem .8rem;border-radius:8px;border:1.5px solid #bdbdbd;background:rgba(255,255,255,0.9);color:#1a237e;font-weight:600;">
+                        </div>
+                        <div>
+                            <label for="quoteEmail">Email</label>
+                            <input type="email" id="quoteEmail" name="email" required placeholder="you@example.com" style="width:100%;padding:.6rem .8rem;border-radius:8px;border:1.5px solid #bdbdbd;background:rgba(255,255,255,0.9);color:#1a237e;font-weight:600;">
+                        </div>
+                    </div>
+                    <div class="quote-block">
+                        <h4 style="margin-top:0;">Website Type</h4>
+                        <label class="quote-option"><input type="radio" name="website_tier" value="basic" data-price="30" checked> Basic (1 page) - RM30</label>
+                        <label class="quote-option"><input type="radio" name="website_tier" value="standard" data-price="100"> Standard (Up to 5 pages) - RM100</label>
+                        <label class="quote-option"><input type="radio" name="website_tier" value="premium" data-price="500"> Premium / Custom - RM500</label>
+                    </div>
+                    <div class="quote-block">
+                        <h4 style="margin-top:0;">Documentation</h4>
+                        <p style="margin:0 0 .5rem 0;font-size:.9rem;color:#e3e6fd;">RM100 per phase, up to 5 phases</p>
+                        <label for="docPhases">Phases (0-5)</label>
+                        <input type="number" id="docPhases" name="documentation_phases" min="0" max="5" value="0" style="width:100%;padding:.6rem .8rem;border-radius:8px;border:1.5px solid #bdbdbd;">
+                    </div>
+                    <div class="quote-block">
+                        <h4 style="margin-top:0;">Optional Services</h4>
+                        <label class="quote-option"><input type="checkbox" name="service_debug_basic" data-price="50" value="Basic Debugging"> Basic Debugging +RM50</label>
+                        <label class="quote-option"><input type="checkbox" name="service_debug_adv" data-price="150" value="Advanced Debugging"> Advanced Debugging +RM150</label>
+                        <label class="quote-option"><input type="checkbox" name="service_consult" data-price="200" value="Project Consulting"> Project Consulting +RM200</label>
+                        <label class="quote-option"><input type="checkbox" name="service_priority" data-price="120" value="Priority Support"> Priority Support +RM120</label>
+                    </div>
+                    <div class="quote-block total-block">
+                        <h4 style="margin-top:0;">Your Quote</h4>
+                        <div id="quoteBreakdown" class="breakdown"></div>
+                        <div class="grand-total">Total: <span id="quoteTotal">RM0</span></div>
+                        <input type="hidden" name="calculated_total" id="calculated_total" value="0">
+                        <input type="hidden" name="quote_breakdown" id="quote_breakdown" value="">
+                        <div id="quoteFormMessage" style="margin-top:.5rem;font-size:.85rem;font-weight:600;min-height:20px;color:#ffe082;"></div>
+                        <div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:.6rem;">
+                            <button type="submit" class="hero-btn big-btn" style="flex:1;min-width:220px;">Submit Quote Request</button>
+                            <button type="button" id="resetQuoteForm" class="contact-btn" style="flex:1;min-width:160px;">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
     <footer class="glass">
         <div class="footer-content">
             <p>&copy; 2025 BK Digital Solutions. All rights reserved.</p>
