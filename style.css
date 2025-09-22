@@ -383,6 +383,37 @@ footer {
     box-shadow: 0 -2px 8px rgba(26,35,126,0.04);
     margin-top: 2.5rem;
 }
+/* ====== Custom Quote Builder ====== */
+#custom-quote .quote-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+#custom-quote .quote-block {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 14px;
+    padding: 1rem 1rem 1.1rem 1rem;
+    font-size: 0.95rem;
+    text-align: left;
+    position: relative;
+}
+#custom-quote h4 { font-size: 1.05rem; letter-spacing: .5px; }
+#custom-quote label.quote-option { display:block; margin:.45rem 0; cursor:pointer; line-height:1.25rem; }
+#custom-quote input[type="radio"],
+#custom-quote input[type="checkbox"] { margin-right:.45rem; transform:translateY(2px); }
+#custom-quote input[type="number"] { background: rgba(255,255,255,0.9); color:#1a237e; font-weight:600; }
+#custom-quote .total-block { background: linear-gradient(135deg, #1a237e88, #3949ab99); }
+#custom-quote .grand-total { font-size:1.3rem; font-weight:900; margin-top:.8rem; }
+#custom-quote .breakdown { font-size:.8rem; white-space:pre-line; background:rgba(255,255,255,0.08); padding:.6rem .6rem; border-radius:8px; max-height:160px; overflow:auto; }
+#custom-quote input[type="text"],
+#custom-quote input[type="email"] { box-shadow:0 2px 8px rgba(26,35,126,0.06); transition:border .2s, box-shadow .2s; }
+#custom-quote input[type="text"]:focus,
+#custom-quote input[type="email"]:focus { border:1.5px solid #ffb300; outline:none; box-shadow:0 2px 12px rgba(255,179,0,0.18); }
+@media (max-width:800px){
+  #custom-quote .quote-grid { grid-template-columns:1fr; }
+}
 @media (max-width: 900px) {
     .features-grid {
         grid-template-columns: 1fr;
