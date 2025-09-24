@@ -61,6 +61,8 @@ body {
     color: #f4f6fb;
     overflow-x: hidden;
 }
+/* Ensure predictable sizing */
+*, *::before, *::after { box-sizing: border-box; }
 .glass {
     background: rgba(255,255,255,0.13);
     box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
@@ -409,6 +411,13 @@ footer {
 #custom-quote .breakdown { font-size:.8rem; white-space:pre-line; background:rgba(255,255,255,0.08); padding:.6rem .6rem; border-radius:8px; max-height:160px; overflow:auto; }
 #custom-quote input[type="text"],
 #custom-quote input[type="email"] { box-shadow:0 2px 8px rgba(26,35,126,0.06); transition:border .2s, box-shadow .2s; }
+#custom-quote input[type="text"],
+#custom-quote input[type="email"],
+#custom-quote input[type="number"] {
+    width:100%;
+    max-width:100%;
+    box-sizing:border-box;
+}
 #custom-quote input[type="text"]:focus,
 #custom-quote input[type="email"]:focus { border:1.5px solid #ffb300; outline:none; box-shadow:0 2px 12px rgba(255,179,0,0.18); }
 @media (max-width:800px){
@@ -499,3 +508,18 @@ footer {
 @media (prefers-reduced-motion: reduce){
     .btn-shake { animation: none !important; }
 }
+
+/* ====== AINS Pricing Table ====== */
+#ains-pricing .ains-table-wrapper { margin-top: .8rem; }
+#ains-pricing table.ains-table th, 
+#ains-pricing table.ains-table td { border-bottom: 1px solid rgba(255,255,255,0.15); }
+#ains-pricing table.ains-table tr:last-child td { border-bottom: none; }
+#ains-pricing table.ains-table tbody tr:hover { background: rgba(255,255,255,0.08); }
+#ains-pricing table.ains-table th { font-weight: 800; letter-spacing: .5px; }
+/* Custom AINS input styling */
+.custom-ains input[type="number"]:focus { border-color:#ffb300; box-shadow:0 0 0 3px rgba(255,179,0,0.18); outline:none; }
+.custom-ains label { cursor:pointer; }
+/* Disabled AINS radio group visual */
+#ainsRadioGroup.ains-disabled { opacity: .45; position: relative; }
+#ainsRadioGroup.ains-disabled::after { content: 'Custom points active'; position:absolute; top:4px; right:8px; font-size:.55rem; background:#ffb300; color:#1a237e; padding:2px 6px; border-radius:4px; font-weight:700; letter-spacing:.5px; box-shadow:0 2px 6px rgba(0,0,0,0.25); }
+#ainsRadioGroup.ains-disabled input[type="radio"] { cursor: not-allowed; }
