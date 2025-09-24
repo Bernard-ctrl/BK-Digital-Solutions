@@ -239,6 +239,7 @@ function initQuoteBuilder(){
     const nameInput = document.getElementById('quoteName');
     const emailInput = document.getElementById('quoteEmail');
     const resetBtn = document.getElementById('resetQuoteForm');
+    const submitBtn = form.querySelector('button[type="submit"]');
 
     const STORAGE_KEY = 'bk_quote_builder_v1';
 
@@ -286,7 +287,12 @@ function initQuoteBuilder(){
         if(tier){
             const price = parseFloat(tier.dataset.price||'0');
             total += price;
-            breakdown.push(`Website Tier (${tier.value}) : RM${price}`);
+            if(tier.value === 'none') {
+                breakdown.push('No Website Development Selected (RM0)');
+            } else {
+                const labelMap = { basic: 'Basic', standard: 'Standard', premium: 'Premium/Custom' };
+                breakdown.push(`Website Tier (${labelMap[tier.value]||tier.value}) : RM${price}`);
+            }
         }
         // Documentation phases
         let phases = parseInt(docPhasesInput.value,10);
@@ -312,6 +318,14 @@ function initQuoteBuilder(){
         hiddenTotal.value = total;
         hiddenBreakdown.value = breakdown.join('\n');
         saveState();
+        // Disable submit if total is 0 (no payable selections)
+        if(submitBtn){
+            const disable = total === 0;
+            submitBtn.disabled = disable;
+            submitBtn.style.opacity = disable ? '0.55' : '1';
+            submitBtn.style.cursor = disable ? 'not-allowed' : 'pointer';
+            submitBtn.setAttribute('aria-disabled', disable ? 'true' : 'false');
+        }
     }
     // Use multiple event types to catch all interactions (especially on iOS)
     form.addEventListener('change', calculate);
@@ -342,9 +356,18 @@ function initQuoteBuilder(){
     calculate();
 
     // Ensure hidden fields up to date on submit
-    form.addEventListener('submit', function(){
+    form.addEventListener('submit', function(e){
         calculate();
+        const totalNow = parseFloat(hiddenTotal.value || '0');
         const msg = document.getElementById('quoteFormMessage');
+        if(totalNow === 0){
+            e.preventDefault();
+            if(msg){
+                msg.textContent = 'Please select at least one payable service (website tier, documentation phase, or optional service).';
+                msg.style.color = '#ff6f00';
+            }
+            return;
+        }
         if(msg){
             msg.style.color = '#ffe082';
             msg.textContent = 'Submitting...';
