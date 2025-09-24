@@ -325,6 +325,11 @@ function initQuoteBuilder(){
             submitBtn.style.opacity = disable ? '0.55' : '1';
             submitBtn.style.cursor = disable ? 'not-allowed' : 'pointer';
             submitBtn.setAttribute('aria-disabled', disable ? 'true' : 'false');
+            if(disable){
+                submitBtn.title = 'Select at least one paid item to proceed';
+            } else {
+                submitBtn.removeAttribute('title');
+            }
         }
     }
     // Use multiple event types to catch all interactions (especially on iOS)
@@ -365,6 +370,12 @@ function initQuoteBuilder(){
             if(msg){
                 msg.textContent = 'Please select at least one payable service (website tier, documentation phase, or optional service).';
                 msg.style.color = '#ff6f00';
+            }
+            if(submitBtn){
+                submitBtn.classList.remove('btn-shake');
+                // Force reflow to restart animation
+                void submitBtn.offsetWidth;
+                submitBtn.classList.add('btn-shake');
             }
             return;
         }
