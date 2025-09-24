@@ -75,6 +75,51 @@
             </div>
         </section>
     </main>
+    <section class="features-section" id="ains-pricing" style="margin-top:0;">
+        <h3 class="section-title">AINS Submission Pricing</h3>
+        <div class="glass" style="max-width:850px;margin:0 auto;padding:2rem 1.5rem;">
+            <p style="margin-top:0;font-size:.95rem;line-height:1.4;">Select the appropriate AINS submission tier. Each additional Bintang level increases the price. If you only require the Nilam Code without AINS submission service, that is priced separately.</p>
+            <div class="ains-table-wrapper" style="overflow-x:auto;">
+                <table class="ains-table" style="width:100%;border-collapse:collapse;font-size:.9rem;">
+                    <thead>
+                        <tr style="background:rgba(255,255,255,0.12);">
+                            <th style="text-align:left;padding:.6rem .7rem;">Tier</th>
+                            <th style="text-align:left;padding:.6rem .7rem;">Score Range</th>
+                            <th style="text-align:left;padding:.6rem .7rem;">Indicative Price (RM)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding:.55rem .7rem;font-weight:700;">1 Bintang</td>
+                            <td style="padding:.55rem .7rem;">120 - 239</td>
+                            <td style="padding:.55rem .7rem;">RM24</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:.55rem .7rem;font-weight:700;">2 Bintang</td>
+                            <td style="padding:.55rem .7rem;">240 - 359</td>
+                            <td style="padding:.55rem .7rem;">RM48</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:.55rem .7rem;font-weight:700;">3 Bintang</td>
+                            <td style="padding:.55rem .7rem;">360 - 479</td>
+                            <td style="padding:.55rem .7rem;">RM72</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:.55rem .7rem;font-weight:700;">4 Bintang</td>
+                            <td style="padding:.55rem .7rem;">480 - 599</td>
+                            <td style="padding:.55rem .7rem;">RM96</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:.55rem .7rem;font-weight:700;">5 Bintang</td>
+                            <td style="padding:.55rem .7rem;">600</td>
+                            <td style="padding:.55rem .7rem;">RM120</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="margin:.9rem 0 0 0;font-size:.8rem;color:#ffe082;">Note: Final price may vary based on submission complexity and required documentation.</p>
+        </div>
+    </section>
     <section class="features-section" style="margin-top:0;" id="custom-quote">
         <h3 class="section-title">Build Your Own Package</h3>
         <div class="glass" style="max-width:850px;margin:0 auto;padding:2rem 1.5rem;">
@@ -96,6 +141,33 @@
                         <label class="quote-option"><input type="radio" name="website_tier" value="basic" data-price="30"> Basic (1 page) - RM30</label>
                         <label class="quote-option"><input type="radio" name="website_tier" value="standard" data-price="100"> Standard (Up to 5 pages) - RM100</label>
                         <label class="quote-option"><input type="radio" name="website_tier" value="premium" data-price="500"> Premium / Custom - RM500</label>
+                    </div>
+                    <div class="quote-block">
+                        <h4 style="margin-top:0;">AINS Submission</h4>
+                        <p style="margin:0 0 .4rem 0;font-size:.75rem;color:#e3e6fd;">Pricing derived at RM1 per 5 submissions. Select a Bintang tier and optionally add Nilam Code service.</p>
+                        <div id="ainsRadioGroup" style="margin-bottom:.4rem;padding:.5rem .6rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);border-radius:8px;">
+                            <strong style="font-size:.7rem;letter-spacing:.5px;display:block;margin-bottom:.25rem;color:#ffe082;">SUBMISSION TIER</strong>
+                            <label class="quote-option" style="margin:.35rem 0;"><input type="radio" name="ains_submission" value="none" data-price="0" checked> None (RM0)</label>
+                            <label class="quote-option" style="margin:.35rem 0;"><input type="radio" name="ains_submission" value="b1" data-price="24"> 1 Bintang (120) - RM24</label>
+                            <label class="quote-option" style="margin:.35rem 0;"><input type="radio" name="ains_submission" value="b2" data-price="48"> 2 Bintang (240) - RM48</label>
+                            <label class="quote-option" style="margin:.35rem 0;"><input type="radio" name="ains_submission" value="b3" data-price="72"> 3 Bintang (360) - RM72</label>
+                            <label class="quote-option" style="margin:.35rem 0;"><input type="radio" name="ains_submission" value="b4" data-price="96"> 4 Bintang (480) - RM96</label>
+                            <label class="quote-option" style="margin:.35rem 0;"><input type="radio" name="ains_submission" value="b5" data-price="120"> 5 Bintang (600) - RM120</label>
+                        </div>
+                        <div class="custom-ains" style="margin:0 0 .4rem 0;padding:.55rem .6rem;border:1px dashed #ffe08255;border-radius:6px;background:rgba(255,255,255,0.07);">
+                            <label style="display:flex;align-items:center;gap:.45rem;font-size:.7rem;font-weight:600;letter-spacing:.5px;">
+                                <input type="checkbox" id="customAinsToggle" name="ains_custom_enabled" value="1" style="transform:translateY(1px);"> Custom Points (Override Tier)
+                            </label>
+                            <div style="margin-top:.4rem;display:none;" id="customAinsControls">
+                                <label for="customAinsPoints" style="font-size:.65rem;letter-spacing:.5px;display:block;margin-bottom:.25rem;color:#e3e6fd;">Enter Total AINS Points</label>
+                                <input type="number" min="0" step="1" id="customAinsPoints" name="ains_custom_points" value="0" style="width:100%;padding:.45rem .55rem;border-radius:6px;border:1px solid #bdbdbd;background:rgba(255,255,255,0.9);color:#1a237e;font-weight:600;">
+                                <div style="margin-top:.35rem;font-size:.65rem;color:#ffe082;" id="customAinsPriceDisplay">Price: RM0 (RM1 per 5 points)</div>
+                            </div>
+                        </div>
+                        <div style="padding:.5rem .6rem;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.18);border-radius:8px;">
+                            <strong style="font-size:.7rem;letter-spacing:.5px;display:block;margin-bottom:.25rem;color:#ffe082;">OPTIONAL ADD-ON</strong>
+                            <label class="quote-option" style="margin:.35rem 0;"><input type="checkbox" name="ains_nilam_code" data-price="200" value="Nilam Code Service"> Nilam Code Service +RM200</label>
+                        </div>
                     </div>
                     <div class="quote-block">
                         <h4 style="margin-top:0;">Documentation</h4>

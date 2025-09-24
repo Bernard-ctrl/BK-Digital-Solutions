@@ -238,6 +238,10 @@ function initQuoteBuilder(){
     const docPhasesInput = document.getElementById('docPhases');
     const nameInput = document.getElementById('quoteName');
     const emailInput = document.getElementById('quoteEmail');
+    const customAinsToggle = document.getElementById('customAinsToggle');
+    const customAinsControls = document.getElementById('customAinsControls');
+    const customAinsPoints = document.getElementById('customAinsPoints');
+    const customAinsPriceDisplay = document.getElementById('customAinsPriceDisplay');
     const resetBtn = document.getElementById('resetQuoteForm');
     const submitBtn = form.querySelector('button[type="submit"]');
 
@@ -246,6 +250,10 @@ function initQuoteBuilder(){
     function saveState(){
         const data = {
             tier: form.querySelector('input[name="website_tier"]:checked')?.value || '',
+            ains: form.querySelector('input[name="ains_submission"]:checked')?.value || '',
+            ains_nilam: form.querySelector('input[name="ains_nilam_code"]:checked') ? true : false,
+            ains_custom_enabled: customAinsToggle?.checked || false,
+            ains_custom_points: customAinsPoints ? customAinsPoints.value : '0',
             phases: docPhasesInput.value,
             options: Array.from(form.querySelectorAll('input[type="checkbox"][data-price]:checked')).map(cb=>cb.name),
             name: nameInput?.value || '',
@@ -262,6 +270,29 @@ function initQuoteBuilder(){
             if(data.tier){
                 const tierEl = form.querySelector(`input[name="website_tier"][value="${data.tier}"]`);
                 if(tierEl) tierEl.checked = true;
+            }
+            if(data.ains){
+                const ainsEl = form.querySelector(`input[name="ains_submission"][value="${data.ains}"]`);
+                if(ainsEl) ainsEl.checked = true;
+            }
+            if(data.ains_nilam){
+                const nilamCb = form.querySelector('input[name="ains_nilam_code"]');
+                if(nilamCb) nilamCb.checked = true;
+            } else {
+                // Backward compatibility: if old stored value was 'nilam' as a radio
+                if(data.ains === 'nilam'){
+                    const nilamCb = form.querySelector('input[name="ains_nilam_code"]');
+                    const noneRadio = form.querySelector('input[name="ains_submission"][value="none"]');
+                    if(noneRadio) noneRadio.checked = true;
+                    if(nilamCb) nilamCb.checked = true;
+                }
+            }
+            if(data.ains_custom_enabled && customAinsToggle){
+                customAinsToggle.checked = true;
+                if(customAinsControls) customAinsControls.style.display = 'block';
+            }
+            if(typeof data.ains_custom_points !== 'undefined' && customAinsPoints){
+                customAinsPoints.value = data.ains_custom_points;
             }
             if(typeof data.phases !== 'undefined') docPhasesInput.value = data.phases;
             if(Array.isArray(data.options)){
@@ -294,6 +325,51 @@ function initQuoteBuilder(){
                 breakdown.push(`Website Tier (${labelMap[tier.value]||tier.value}) : RM${price}`);
             }
         }
+        // AINS submission
+        let customAinsApplied = false;
+        if(customAinsToggle && customAinsToggle.checked && customAinsPoints){
+            let pts = parseInt(customAinsPoints.value,10);
+            if(isNaN(pts) || pts < 0) pts = 0;
+            customAinsPoints.value = pts;
+            const priceFromPts = Math.floor(pts / 5); // RM1 per 5 points
+            if(customAinsPriceDisplay){
+                customAinsPriceDisplay.textContent = `Price: RM${priceFromPts} (RM1 per 5 points)`;
+            }
+            if(priceFromPts > 0){
+                total += priceFromPts;
+                breakdown.push(`AINS Custom Points (${pts} pts @ RM1 per 5) : RM${priceFromPts}`);
+            } else {
+                breakdown.push('AINS Custom Points (0 pts) : RM0');
+            }
+            customAinsApplied = true;
+        }
+        if(!customAinsApplied){
+            const ains = form.querySelector('input[name="ains_submission"]:checked');
+            if(ains){
+                const ainsPrice = parseFloat(ains.dataset.price||'0');
+                total += ainsPrice;
+                const ainsLabelMap = {
+                    none: 'No AINS Submission Selected (RM0)',
+                    b1: 'AINS 1 Bintang',
+                    b2: 'AINS 2 Bintang',
+                    b3: 'AINS 3 Bintang',
+                    b4: 'AINS 4 Bintang',
+                    b5: 'AINS 5 Bintang'
+                };
+                if(ains.value === 'none') {
+                    breakdown.push(ainsLabelMap.none);
+                } else {
+                    breakdown.push(`${ainsLabelMap[ains.value]||ains.value} : RM${ainsPrice}`);
+                }
+            }
+        }
+        // Nilam code add-on (checkbox)
+        const nilam = form.querySelector('input[name="ains_nilam_code"]');
+        if(nilam && nilam.checked){
+            const nilamPrice = parseFloat(nilam.dataset.price||'0');
+            total += nilamPrice;
+            breakdown.push(`Nilam Code Service : RM${nilamPrice}`);
+        }
         // Documentation phases
         let phases = parseInt(docPhasesInput.value,10);
         if(isNaN(phases) || phases < 0) phases = 0;
@@ -305,7 +381,8 @@ function initQuoteBuilder(){
             breakdown.push(`Documentation Phases (${phases} x RM100) : RM${docCost}`);
         }
         // Optional services
-        const optionChecks = form.querySelectorAll('input[type="checkbox"][data-price]');
+    // Exclude Nilam Code checkbox here because it is already handled separately above
+    const optionChecks = form.querySelectorAll('input[type="checkbox"][data-price]:not([name="ains_nilam_code"])');
         optionChecks.forEach(cb=>{
             if(cb.checked){
                 const p = parseFloat(cb.dataset.price||'0');
@@ -351,13 +428,46 @@ function initQuoteBuilder(){
         resetBtn.addEventListener('click', () => {
             form.reset();
             docPhasesInput.value = 0;
+            if(customAinsControls) customAinsControls.style.display = 'none';
+            if(customAinsPoints) customAinsPoints.value = 0;
+            if(customAinsPriceDisplay) customAinsPriceDisplay.textContent = 'Price: RM0 (RM1 per 5 points)';
             calculate();
             clearState();
             const msg = document.getElementById('quoteFormMessage');
             if(msg){ msg.textContent = 'Form reset.'; msg.style.color = '#ffe082'; }
         });
     }
+    if(customAinsToggle){
+        customAinsToggle.addEventListener('change', ()=>{
+            if(customAinsControls){
+                customAinsControls.style.display = customAinsToggle.checked ? 'block' : 'none';
+            }
+            // Disable / enable AINS radios when custom active
+            const ainsGroup = document.getElementById('ainsRadioGroup');
+            const ainsRadios = form.querySelectorAll('input[name="ains_submission"]');
+            if(customAinsToggle.checked){
+                ainsRadios.forEach(r=>{ r.disabled = true; });
+                if(ainsGroup) ainsGroup.classList.add('ains-disabled');
+            } else {
+                ainsRadios.forEach(r=>{ r.disabled = false; });
+                if(ainsGroup) ainsGroup.classList.remove('ains-disabled');
+            }
+            calculate();
+        });
+    }
+    if(customAinsPoints){
+        customAinsPoints.addEventListener('input', ()=>{
+            calculate();
+        });
+    }
     loadState();
+    // On initial load reflect disabled state if needed
+    if(customAinsToggle && customAinsToggle.checked){
+        const ainsGroup = document.getElementById('ainsRadioGroup');
+        const ainsRadios = form.querySelectorAll('input[name="ains_submission"]');
+        ainsRadios.forEach(r=>{ r.disabled = true; });
+        if(ainsGroup) ainsGroup.classList.add('ains-disabled');
+    }
     calculate();
 
     // Ensure hidden fields up to date on submit
