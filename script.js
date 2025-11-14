@@ -1,14 +1,60 @@
 /* ====== Game-like Animated Intro with 3D Object (show once per session) ====== */
 window.addEventListener('DOMContentLoaded', () => {
-    // Only show intro if not already shown in this session
-    // TEMP: Always show intro for testing (remove or revert this for production)
-    // if (sessionStorage.getItem('introShown')) {
-    //     const intro = document.getElementById('intro-overlay');
-    //     if (intro) intro.remove();
-    //     return;
-    // }
-    // sessionStorage.setItem('introShown', '1');
     const intro = document.getElementById('intro-overlay');
+    if (!intro) return;
+
+    const INTRO_FLAG = 'bk_intro_shown';
+    let shouldSkipIntro = false;
+    try {
+        shouldSkipIntro = sessionStorage.getItem(INTRO_FLAG) === '1';
+    } catch (err) {
+        shouldSkipIntro = false;
+    }
+
+    if (shouldSkipIntro) {
+        intro.remove();
+        return;
+    }
+    try {
+        sessionStorage.setItem(INTRO_FLAG, '1');
+    } catch (err) {
+        // Ignore storage errors; intro will simply replay next session if storage unavailable
+    }
+
+    const skipBtn = document.getElementById('skipIntro');
+    const progressBar = document.querySelector('.intro-progress__track .progress-bar');
+    const progressValue = document.querySelector('.intro-progress .progress-value');
+    const progressTarget = Math.floor(78 + Math.random() * 18); // 78% - 96%
+    const progressDuration = 3200 + Math.random() * 1800; // 3.2s - 5s
+    const progressStart = performance.now();
+    if (progressValue) {
+        progressValue.textContent = '0%';
+    }
+    if (progressBar) {
+        const animateProgress = now => {
+            const elapsed = now - progressStart;
+            const progress = Math.min(elapsed / progressDuration, 1);
+            const currentPercent = progressTarget * progress;
+            progressBar.style.width = `${currentPercent.toFixed(1)}%`;
+            if (progressValue) {
+                progressValue.textContent = `${Math.round(currentPercent)}%`;
+            }
+            if (progress < 1 && intro && !intro.classList.contains('fade-out')) {
+                requestAnimationFrame(animateProgress);
+            }
+        };
+        requestAnimationFrame(animateProgress);
+    }
+    const dismissIntro = () => {
+        if (!intro || intro.classList.contains('fade-out')) return;
+        intro.classList.add('fade-out');
+        setTimeout(() => {
+            if (intro && intro.parentNode) intro.remove();
+        }, 600);
+    };
+    if (skipBtn && intro) {
+        skipBtn.addEventListener('click', dismissIntro);
+    }
     if (intro && window.THREE) {
         // Setup Three.js scene
         const scene = new THREE.Scene();
@@ -147,13 +193,10 @@ window.addEventListener('DOMContentLoaded', () => {
         }
         animate();
 
-        // Fade out after 1.2s
-        setTimeout(() => {
-            intro.classList.add('fade-out');
-            setTimeout(() => {
-                intro.remove();
-            }, 700);
-        }, 1200);
+        // Fade out after animation completes
+        setTimeout(dismissIntro, progressDuration + 400);
+    } else if (intro) {
+        setTimeout(dismissIntro, progressDuration);
     }
 });
 
@@ -204,14 +247,6 @@ function animateOnScroll(selector) {
         observer.observe(el);
     });
 }
-// Add CSS classes for animation (injected for demo, should be in CSS)
-const style = document.createElement('style');
-style.innerHTML = `
-.pre-animate { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(.23,1.02,.32,1); }
-.visible-animate { opacity: 1 !important; transform: none !important; }
-`;
-document.head.appendChild(style);
-
 window.addEventListener('DOMContentLoaded', () => {
     animateOnScroll('.feature-card');
     animateOnScroll('.about-section');
