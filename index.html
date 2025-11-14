@@ -5,16 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BK Digital Solutions</title>
     <link rel="icon" type="image/png" href="https://img.icons8.com/color/48/000000/artificial-intelligence.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.153.0/examples/js/loaders/GLTFLoader.min.js"></script>
 </head>
 <body>
     <div id="intro-overlay">
-        <div id="intro-3d"></div>
-        <div id="intro-text">
-            <h2>Welcome to <span class="gradient-text">BK Digital Solutions</span></h2>
-            <p class="intro-sub">Level up your digital journey</p>
+        <div class="intro-shell">
+            <div class="intro-decoration intro-decoration--one"></div>
+            <div class="intro-decoration intro-decoration--two"></div>
+            <div class="intro-content">
+                <span class="intro-chip">BK DIGITAL</span>
+                <p class="intro-eyebrow">Preparing experience</p>
+                <h2>Design systems booting up</h2>
+                <p class="intro-sub">Staging assets • Calibrating lighting • Loading scenes</p>
+                <div class="intro-progress">
+                    <div class="intro-progress__label">
+                        <span>Studio pipeline</span>
+                        <span class="progress-value">92%</span>
+                    </div>
+                    <div class="intro-progress__track"><span class="progress-bar"></span></div>
+                </div>
+                <button id="skipIntro" class="intro-skip" type="button">Skip intro</button>
+            </div>
+            <div id="intro-3d" class="intro-3d"></div>
         </div>
     </div>
     <header class="main-header glass">
@@ -29,23 +46,72 @@
                     <li><a href="#features">Features</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
+                    <li class="nav-cta"><a href="#contact" class="btn ghost">Request a brief</a></li>
                 </ul>
             </nav>
         </div>
     </header>
     <section id="hero" class="hero-section">
         <div class="hero-bg-animated"></div>
-        <div class="hero-content">
-            <h2>
-                <span class="gradient-text">Empowering Digital Innovation</span>
-            </h2>
-            <p class="hero-subtitle">Websites, documentation, debugging, and more—crafted for students & educators.</p>
-            <a href="#contact" class="hero-btn big-btn">Get Started</a>
+        <div class="container hero-grid">
+            <div class="hero-left">
+                <p class="eyebrow">Boutique studio for schools & SMEs</p>
+                <h2><span class="gradient-text">Build confident digital stories</span> with UI, documentation, and guidance aligned to real classrooms.</h2>
+                <p class="hero-subtitle">Rapid delivery, transparent pricing, and hands-on debugging support from the same team that crafts the visuals.</p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn primary hero-btn">Start a project</a>
+                    <a href="pricing.html" class="btn ghost">See pricing</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <span class="stat-value">40+</span>
+                        <span class="stat-label">Projects guided</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">12</span>
+                        <span class="stat-label">Schools onboarded</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">96%</span>
+                        <span class="stat-label">Repeat requests</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-card glass">
+                    <div class="hero-card__header">
+                        <p class="eyebrow">Delivery stack</p>
+                        <h3>Strategy → UI → Launch</h3>
+                    </div>
+                    <ul class="hero-list">
+                        <li>
+                            <strong>Rapid site builds</strong>
+                            <span>Responsive, CMS-ready, and audit friendly.</span>
+                        </li>
+                        <li>
+                            <strong>Documentation pods</strong>
+                            <span>Exam-ready reports, diagrams, and Nilam scoring.</span>
+                        </li>
+                        <li>
+                            <strong>Debugging hotline</strong>
+                            <span>Pair-programming availability + async reviews.</span>
+                        </li>
+                    </ul>
+                    <div class="hero-card__footer">
+                        <span class="badge">Service-level: 48h to first preview</span>
+                        <a href="#features" class="link-arrow">Explore capabilities →</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     <main>
         <section id="features" class="features-section">
-            <h3 class="section-title">What We Offer</h3>
+            <div class="section-heading">
+                <p class="eyebrow">Capabilities</p>
+                <h3 class="section-title">Signature services layered with technical rigor</h3>
+                <p class="section-subtitle">Every engagement pairs visual polish with documentation, QA and rollout support so you can focus on delivering outcomes.</p>
+            </div>
             <div class="features-grid">
                 <div class="feature-card glass">
                     <img src="https://img.icons8.com/color/64/domain.png" alt="Website Creation">
@@ -70,14 +136,29 @@
             </div>
         </section>
         <section id="about" class="about-section glass">
-            <h3 class="section-title">About Us</h3>
+            <p class="eyebrow">Why BK Digital?</p>
+            <h3 class="section-title">Consultants with a maker mindset</h3>
             <p>
-                <span class="about-highlight gradient-text">BK Digital Solutions</span> is dedicated to supporting students and educators with user-friendly, modern solutions for academic and technical needs.<br>
-                We combine technology, creativity, and expertise to help you succeed.
+                <span class="about-highlight gradient-text">BK Digital Solutions</span> blends agency-level polish with the pragmatism educators expect. We blueprint the experience, write the copy, document the build, and stay on standby when a presentation demo needs that final tweak.
             </p>
+            <div class="about-grid">
+                <div>
+                    <span class="stat-value">3</span>
+                    <span class="stat-label">Specialist pods</span>
+                </div>
+                <div>
+                    <span class="stat-value">140 hrs</span>
+                    <span class="stat-label">Average turnaround saved</span>
+                </div>
+                <div>
+                    <span class="stat-value">AINS</span>
+                    <span class="stat-label">Submission ready artifacts</span>
+                </div>
+            </div>
         </section>
         <section id="contact" class="contact-section glass">
-            <h3 class="section-title">Contact</h3>
+            <p class="eyebrow">Start a conversation</p>
+            <h3 class="section-title">Tell us what you need</h3>
             <form id="contactForm" action="https://formspree.io/f/xldljorn" method="POST">
                 <div class="input-group">
                     <input type="text" id="name" name="name" placeholder="Your Name" required>
