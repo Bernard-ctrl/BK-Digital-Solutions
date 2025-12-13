@@ -115,6 +115,13 @@ section {
     gap: 1rem;
 }
 
+/* Make the logo + title anchor lay out inline and centered */
+.logo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
 .logo {
     width: 56px;
     height: 56px;
