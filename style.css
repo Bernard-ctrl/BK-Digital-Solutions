@@ -391,7 +391,6 @@ nav a:focus {
     margin: 0;
 }
 
-#ains-pricing .section-title,
 #custom-quote .section-title {
     text-align: center;
 }
@@ -739,24 +738,6 @@ footer {
     padding: 0.8rem;
     border-radius: var(--radius-sm);
     background: rgba(0, 0, 0, 0.25);
-}
-
-#ainsRadioGroup.ains-disabled {
-    opacity: 0.45;
-    position: relative;
-}
-
-#ainsRadioGroup.ains-disabled::after {
-    content: "Custom points active";
-    position: absolute;
-    top: 6px;
-    right: 10px;
-    font-size: 0.6rem;
-    letter-spacing: 0.3em;
-    background: var(--accent);
-    color: #1f1402;
-    padding: 0.2rem 0.6rem;
-    border-radius: 999px;
 }
 
 /* Scrollbar */
